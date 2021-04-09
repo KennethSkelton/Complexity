@@ -8,7 +8,7 @@ function main()
 
 	if( args.length == 0 )
 	{
-		args = ["analysis.js"];
+		args = ["mystery.js"];
 	}
 	var filePath = args[0];
 	
@@ -35,7 +35,7 @@ function FunctionBuilder()
 	// The number of parameters for functions
 	this.ParameterCount  = 0,
 	// Number of if statements/loops + 1
-	this.SimpleCyclomaticComplexity = 0;
+	this.SimpleCyclomaticComplexity = 1;
 	// The max depth of scopes (nested ifs, loops, etc)
 	this.MaxNestingDepth    = 0;
 	// The max number of conditions if one decision statement.
@@ -122,10 +122,23 @@ function complexity(filePath)
 			builder.FunctionName = functionName(node);
 			builder.StartLine    = node.loc.start.line;
 
+			if( node.id ){
+				builder.ParameterCount = node.params.length;
+			}
+
 			builders[builder.FunctionName] = builder;
 		}
 
+		if(isDecision(node) && (node.name in builders)){
+			builders[node.name].SimpleCyclomaticComplexity++;
+		}
+
+
+		if(node.type == 'Literal' && typeof node.value == 'string'){
+			builders[filePath].Strings++;
+		}
 	});
+
 
 }
 
@@ -153,7 +166,7 @@ function childrenLength(node)
 function isDecision(node)
 {
 	if( node.type == 'IfStatement' || node.type == 'ForStatement' || node.type == 'WhileStatement' ||
-		 node.type == 'ForInStatement' || node.type == 'DoWhileStatement')
+		 node.type == 'ForInStatement' || node.type == 'DoWhileStatement' || node.type == 'SwitchStatement' || node.type == 'ForOf')
 	{
 		return true;
 	}
