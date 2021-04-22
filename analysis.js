@@ -294,3 +294,4 @@ mints.toString().split(".")[0] + " " + szmin;
       }
   }
  exports.complexity = complexity;
+ exports.getStrings = getStrings;
