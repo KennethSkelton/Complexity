@@ -172,6 +172,7 @@ function getStrings(filePath){
 			builders[filePath].Strings++;
 		}
 	});
+	return builders[filePath].Strings
 }
 
 
