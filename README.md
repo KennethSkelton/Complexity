@@ -39,7 +39,7 @@ Will appear as following, and:
 
 ### Lab activities:
 
-The repository contains a stub that parses a javascript file and visits each function. 
+The contains a stub that parses a javascript file and visits each function. 
 
 1. Run the program and print all the tokens in an ast.
    ```
