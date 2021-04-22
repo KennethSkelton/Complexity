@@ -168,7 +168,7 @@ function getStrings(filePath){
 
 
 
-		if(node.type == 'Literal' && typeof node.value == 'string'){
+		if(node.type == 'Literal'){
 			builders[filePath].Strings++;
 		}
 	});
