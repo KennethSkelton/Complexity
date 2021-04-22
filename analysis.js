@@ -146,28 +146,14 @@ function getStrings(filePath){
 	
 	var buf = fs.readFileSync(filePath, "utf8");
 	var ast = esprima.parse(buf, options);
+
 	var fileBuilder = new FileBuilder();
 	fileBuilder.FileName = filePath;
 	fileBuilder.ImportCount = 0;
 	builders[filePath] = fileBuilder;
+
 	traverseWithParents(ast, function (node) 
 	{
-		if (node.type === 'FunctionDeclaration') 
-		{
-			var builder = new FunctionBuilder();
-
-			builder.FunctionName = functionName(node);
-			builder.StartLine    = node.loc.start.line;
-
-			if( node.id ){
-				builder.ParameterCount = node.params.length;
-			}
-
-			builders[builder.FunctionName] = builder;
-		}
-
-
-
 		if(node.type == 'Literal'){
 			builders[filePath].Strings++;
 		}
