@@ -142,6 +142,11 @@ function complexity(filePath)
 
 }
 
+function getStrings(node){
+	return node.Strings
+}
+
+
 // Helper function for counting children of node.
 function childrenLength(node)
 {
